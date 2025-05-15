@@ -1,5 +1,2 @@
-# Ignore frontend dependencies
-frontend/node_modules/
-
-# Ignore Python virtual environment
-backend/venv/
+__pycache__/
+myenv/

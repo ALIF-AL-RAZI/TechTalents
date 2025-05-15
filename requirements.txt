@@ -1,0 +1,10 @@
+flask
+gunicorn
+nltk
+scikit-learn
+pandas
+langdetect
+joblib
+numpy
+gunicorn
+python-dotenv

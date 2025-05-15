@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Classification App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Text Classification Tool</h1>
+            <p>Analyze and classify text using machine learning</p>
+        </header>
+        
+        <main>
+            <div class="input-section">
+                <h2>Enter Text to Classify</h2>
+                <textarea id="input-text" placeholder="Enter text to classify..."></textarea>
+                <div class="buttons">
+                    <button id="classify-btn" class="primary-btn">Classify Text</button>
+                    <button id="clear-btn" class="secondary-btn">Clear</button>
+                </div>
+            </div>
+            
+            <div class="results-section" id="results">
+                <h2>Classification Results</h2>
+                <div class="results-container">
+                    <div id="loading" class="hidden">
+                        <i class="fas fa-spinner fa-spin"></i> Processing...
+                    </div>
+                    <div id="results-content" class="hidden">
+                        <div class="result-item">
+                            <h3>Primary Classification</h3>
+                            <div class="prediction-result">
+                                <span id="primary-class">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <h3>Top Predictions</h3>
+                            <div class="probability-bars">
+                                <div id="probability-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="error-message" class="hidden error">
+                        An error occurred. Please try again.
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Text Classification Model - Powered by Flask and Machine Learning</p>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

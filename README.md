@@ -1,132 +1,159 @@
 # Text Classification Application
 
 This project is a full-stack text classification application that includes:
-
 1. A machine learning model for text classification
-2. A FastAPI backend that serves predictions
-3. A React frontend for interacting with the model
+2. A Flask backend that serves predictions
+3. A responsive web interface for user interaction
 
-## Project Structure
+![Text Classification App Interface](/pic/1.png)
+
+## Project Structure 
 
 ```
-project/
-├── backend/
-│   ├── main.py                  # FastAPI application
-│   ├── model_debug.py           # Model debugging tool
-│   ├── save_model.py            # Helper to properly save models
-│   ├── model.pkl                # Saved classification model
-│   ├── vectorizer.pkl           # Saved TF-IDF vectorizer
-│   └── requirements.txt         # Python dependencies
-└── frontend/
-    ├── pages/
-    │   └── index.tsx            # React frontend
-    └── package.json             # Frontend dependencies
+text-classifier/
+├── api/                     # Vercel serverless functions
+│   └── index.py             # Main API entry point
+├── models/                  # Directory for your model files
+│   ├── logistic_regression_model.pkl
+│   └── tfidf_vectorizer.pkl
+├── static/                  # Static files
+│   ├── css/
+│   │   └── style.css        # CSS styles
+│   └── js/
+│       └── script.js        # JavaScript for frontend
+├── templates/               # HTML templates
+│   └── index.html           # Main page template
+├── app.py                   # Flask application (for local development)
+├── preprocessing.py         # Text preprocessing functions
+├── requirements.txt         # Project dependencies
+└── vercel.json              # Vercel configuration
 ```
 
-## Setup Instructions
+## Getting Started
 
-### 1. Fix the Model Export
+### Prerequisites
 
-If you're getting an error that the model is a NumPy array instead of a scikit-learn model, run:
+- Python 3.8 or higher
+- Git
+- pip (Python package manager)
+- Virtual environment (recommended)
+
+### Downloading the Project
+
+1. Clone the repository using Git:
 
 ```bash
-cd backend
-python save_model.py --from-existing
+git clone https://github.com/ALIF-AL-RAZI/techtalents2.git
+cd text-classifier
 ```
 
-This will load your existing trained model and vectorizer and save them properly for use with the FastAPI app.
+Alternatively, you can download the ZIP file from the GitHub repository and extract it to your desired location.
 
-### 2. Debug the Model
+### Installation
 
-To check if your model and vectorizer are correctly saved and loaded:
+1. Create and activate a virtual environment (recommended):
 
 ```bash
-cd backend
-python model_debug.py
+# On Windows
+python -m venv venv
+./venv/Scripts/Activate.ps1
+
+# On macOS/Linux
+python -m venv venv
+source venv/bin/activate
 ```
 
-This will output information about your model and vectorizer and test if they can be used for predictions.
-
-### 3. Start the Backend
+2. Install the required dependencies:
 
 ```bash
-cd backend
-pip install -r requirements.txt  # Install dependencies
-uvicorn main:app --reload       # Start the FastAPI server
+pip install -r requirements.txt
 ```
 
-The API will be available at http://localhost:8000
+3. Verify that all models are present in the `models/` directory:
+   - `logistic_regression_model.pkl`
+   - `tfidf_vectorizer.pkl`
 
-### 4. Start the Frontend
+### Running the Application Locally
+
+1. Start the Flask development server:
 
 ```bash
-cd frontend
-npm install                      # Install dependencies
-npm run dev                      # Start the Next.js development server
+python app.py
 ```
 
-The frontend will be available at http://localhost:3000
+2. Open your web browser and navigate to:
 
-## API Endpoints
+```
+http://127.0.0.1:5000
+```
 
-- `GET /health` - Check if the API is online and model is loaded
-- `POST /predict` - Get predictions for text
-  - Request Body: `{ "text": "Your text to classify" }`
-- `POST /reload_model` - Reload the model and vectorizer from disk
+You should see the application interface as shown in the screenshot above.
 
-## Model Information
+## Using the Application
 
-This application is built to work with a text classification model trained on the following classes:
+![Text Classification Demo](/pic/2.png)
 
-- Mob Justice
-- Law and Order
-- Politics
-- Islamic Fundamentalism
-- International affairs
-- Religion
-- Corruption
-- National Defence
-- Diplomacy
-- Governance & Policy Reform
-- Women Rights
-- Sports
+1. Enter or paste the text you want to classify in the input box
+2. Click the "Classify" button
+3. View the classification results that appear below the input form
+4. The application will display:
+   - The predicted category
+   - Confidence score (when available)
 
-The model uses TF-IDF for text vectorization and applies preprocessing steps including:
-- Text cleaning (URL/hashtag/emoji removal)
-- Tokenization
-- Stopword removal
-- Lemmatization
+
+## View Machine Learning Code
+
+[View Machine Learning Code](https://nbviewer.org/github/ALIF-AL-RAZI/techtalents2/blob/main/main3.ipynb)
+
+
+## Machine Learning Image
+
+
+![Imbalance Data](/pic/3.png)
+
+
+![Balance Data](/pic/4.png)
+
+
+![Multinomial Naive Bayes Confusion Matrix](/pic/5.png)
+
+
+![Bernoulli Naive Bayes Confusion Matrix](/pic/6.png)
+
+
+![Logistic Regression Confusion Matrix](/pic/7.png)
+
+
+![LinearSVC Confusion Matrix](/pic/8.png)
+
+
+![Random Forest Confusion Matrix](/pic/9.png)
+
+
+![Accuracy Comparison](/pic/10.png)
+
+
+![Tuned Model Confusion Matrix](/pic/11.png)
+
+
+![Ensemble Model Confusion Matrix](/pic/12.png)
+
 
 ## Troubleshooting
 
-### Backend Issues
+### Common Issues
 
-1. **Model loading errors**:
-   - Run `python model_debug.py` to diagnose problems
-   - Ensure both `model.pkl` and `vectorizer.pkl` exist in the backend directory
-   - Use `save_model.py` to properly export your model
+1. **Model files not found**: Ensure all pickle files are in the `models/` directory
+2. **Dependencies errors**: Make sure you're using the correct Python version and have installed all requirements
+3. **Server not starting**: Check if the port is already in use by another application
 
-2. **Missing dependencies**:
-   - Install all required packages: `pip install fastapi uvicorn scikit-learn nltk joblib`
-   - For NLTK resources: `python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('wordnet')"`
+## Contributing
 
-### Frontend Issues
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. **API connection errors**:
-   - Ensure the backend is running on port 8000
-   - Check that CORS is properly configured in the backend
 
-2. **Visualization problems**:
-   - Make sure all Tailwind CSS dependencies are installed
+## Acknowledgments
 
-## Customization
-
-To adapt this application for different classification tasks:
-
-1. Train your model using your dataset and save it following the same structure
-2. Update the preprocessing steps in `main.py` to match your training preprocessing
-3. Deploy your new model with the same FastAPI/React infrastructure
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+- scikit-learn for the machine learning tools
+- Flask for the web framework
+- Vercel for hosting capabilities
